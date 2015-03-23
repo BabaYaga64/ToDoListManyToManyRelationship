@@ -45,6 +45,19 @@
 
         }
 
+
+        function update($new_name) {
+
+            $GLOBALS['DB']->exec("UPDATE categories SET description = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM categories * WHERE id = {$this->getId()};");
+        }
+
+
         static function getAll(){
 
             $returned_categories= $GLOBALS['DB']->query("SELECT * FROM categories;");
@@ -60,7 +73,19 @@
             return $array_categories;
 
         }
+        static function find($search_id){
+            $found_category= null;
+            $allCategories= Category::getAll();
+            foreach ($allCategories as $category){
+            $category_id= $category->getId();
+            if ($category_id == $search_id){
 
+                $found_category= $category;
+            }
+        }
+            return $found_category;
+
+        }
 
 
         static function deleteAll()
