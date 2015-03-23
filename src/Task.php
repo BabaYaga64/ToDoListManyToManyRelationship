@@ -97,6 +97,9 @@ class Task
           $GLOBALS['DB']->exec("DELETE FROM tasks *;");
         }
 
+
+
+
     }
 
     ?>
