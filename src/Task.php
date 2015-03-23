@@ -67,7 +67,7 @@ class Task
         function delete(){
 
             $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id={$this->getId()}");
-
+            $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE task_id = {$this->getId()};");
 
         }
 
@@ -97,7 +97,38 @@ class Task
           $GLOBALS['DB']->exec("DELETE FROM tasks *;");
         }
 
+       function addCategory($category){
+           //inserts into the join table a row.
+           // insets into the tasks_id column the id of the object
+           // takes the category_id of the category entered and inserts into the category_id.
 
+           $GLOBALS['DB']->exec("INSERT INTO categories_tasks (category_id, task_id)  VALUES ({$category->getId()}, {$this->getId()});");
+      }
+
+      function getCategories(){
+
+         //Takes all category_ids from the join table, whewre task_id equals $this object id.
+         $query= $GLOBALS['DB']->query("SELECT category_id FROM categories_tasks WHERE task_id ={$this->getId()};");
+         $category_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+         //Category_id equals all the results of the query
+
+
+         $categories=array();
+         foreach($category_ids as $id){
+             $category_id = $id['category_id'];
+             $query2= $GLOBALS['DB']->query("SELECT * FROM categories WHERE id ={$category_id};");
+             $returned_category = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+             $name = $returned_category[0]['name'];
+             $id = $returned_category[0]['id'];
+             $new_category = new Category($name, $id);
+
+             array_push($categories, $new_category);
+
+         }
+         return $categories;
+
+     }
 
 
     }
