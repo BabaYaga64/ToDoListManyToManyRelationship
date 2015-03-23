@@ -53,7 +53,20 @@
         return $app['twig']->render('DisplaysCategoriesAndForm.twig', array('category_array' => Category::getAll()));
 
     });
+    //Pulls tasks by id from view_tasks.twig page and displays it on task_and_its_categories.twig page. We call the getCategories method so that users can add which category a task belongs to.
 
+    $app->get("/categories/{id}", function($id) use ($app) {
+        $category = Category::find($id);
+        return $app['twig']->render('display_catogories.twig', array('category' => $category, 'tasks' => $category->getTasks(), 'all_tasks' => Task::getAll()));
+    });
+
+
+    $app->post("/add_tasks", function() use ($app) {
+        $category = Category::find($_POST['category_id']);
+        $task = Task::find($_POST['task_id']);
+        $category->addTask($task);
+        return $app['twig']->render('display_catogories.twig', array('category' => $category, 'categories' => Category::getAll(), 'tasks' => $category->getTasks(), 'all_tasks' => Task::getAll()));
+    });
 
 //#################################Tasks Routes########################################
 //#################################Tasks  Routes####################################
@@ -84,7 +97,7 @@
     });
 
 
-    //Adding a category to a task. Starting from the /tasks/{id} route, look for category_id and task_id from the form. Both of these are stored in $_POST array. 
+    //Adding a category to a task. Starting from the /tasks/{id} route, look for category_id and task_id from the form. Both of these are stored in $_POST array.
     $app->post("/add_categories", function() use ($app) {
         $category = Category::find($_POST['category_id']);
         $task = Task::find($_POST['task_id']);
