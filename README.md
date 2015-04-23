@@ -6,7 +6,7 @@
 
 ###Description
 
-This app allows users to create a list of tasks. In addition, users can add a category to each task, and when a user clicks on a category, a list of tasks is displayed. A list of categories is displayed when a user clicks on a category. This is illustrative of a many-to-many relationship between database tables. 
+This app allows users to create a list of tasks and a list of categories. Users can add a category to each task, and when a user clicks on a category, a list of tasks is displayed. A list of categories is displayed when a user clicks on a category. This is illustrative of a many-to-many relationship between database tables. 
 
 ###Technologies Used:
 
