@@ -22,9 +22,13 @@ This app allows users to create a list of tasks. In addition, users can add a ca
 
 ###Setup Instructions
 
-1. Clone GitHub repository to your local machine.
-2. Start up your PHP server.
-3. Direct browser to root directory file.
+
+    Clone GitHub repository
+    Launch Postgres and PSQL shells in terminal
+    Import database into PSQL shell so that you have it on your local machine
+    Launch PHP Server
+    Navigate to root path in project folder
+
 
 ###The MIT License (MIT)
 
